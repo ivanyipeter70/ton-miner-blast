@@ -2,41 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* TON Mining Game Design System - Gaming/Crypto Aesthetic */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark gaming theme */
+    --background: 220 27% 8%;
+    --foreground: 210 100% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 25% 12%;
+    --card-foreground: 210 100% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 25% 12%;
+    --popover-foreground: 210 100% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* TON Blue Primary */
+    --primary: 207 100% 46%;
+    --primary-foreground: 220 27% 8%;
+    --primary-glow: 207 100% 65%;
+    --primary-dark: 207 100% 35%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Mining themed secondary */
+    --secondary: 220 20% 18%;
+    --secondary-foreground: 210 100% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 210 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent colors for highlights */
+    --accent: 45 100% 65%;
+    --accent-foreground: 220 27% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 100% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 20% 18%;
+    --input: 220 20% 18%;
+    --ring: 207 100% 46%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Mining specific colors */
+    --mining-active: 120 100% 50%;
+    --mining-inactive: 0 0% 40%;
+    --ton-gold: 45 100% 65%;
+    --neon-blue: 207 100% 65%;
+    --neon-purple: 270 100% 70%;
+
+    /* Gradients */
+    --gradient-mining: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-ton: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ton-gold)));
+    --gradient-glow: linear-gradient(135deg, hsl(var(--neon-blue)), hsl(var(--neon-purple)));
+    --gradient-card: linear-gradient(135deg, hsl(var(--card)), hsl(var(--secondary)));
+
+    /* Shadows and glows */
+    --shadow-mining: 0 0 30px hsl(var(--primary) / 0.3);
+    --shadow-glow: 0 0 50px hsl(var(--primary-glow) / 0.4);
+    --shadow-card: 0 8px 32px hsl(220 27% 4% / 0.4);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +126,93 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
+  }
+}
+
+@layer components {
+  /* Mining button animations */
+  .mining-pulse {
+    animation: mining-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+    animation: glow-pulse 3s ease-in-out infinite alternate;
+  }
+
+  .ton-gradient {
+    background: var(--gradient-ton);
+  }
+
+  .mining-gradient {
+    background: var(--gradient-mining);
+  }
+
+  .glow-gradient {
+    background: var(--gradient-glow);
+  }
+
+  .card-gradient {
+    background: var(--gradient-card);
+  }
+
+  /* Particle effects */
+  .particles {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .particles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, hsl(var(--primary-glow)), transparent),
+      radial-gradient(2px 2px at 40px 70px, hsl(var(--accent)), transparent),
+      radial-gradient(1px 1px at 90px 40px, hsl(var(--neon-purple)), transparent);
+    background-repeat: repeat;
+    background-size: 150px 100px;
+    animation: particles-float 20s linear infinite;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+@keyframes mining-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px hsl(var(--primary) / 0);
+  }
+}
+
+@keyframes glow-pulse {
+  from {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
+  to {
+    box-shadow: 0 0 40px hsl(var(--primary-glow) / 0.8);
+  }
+}
+
+@keyframes particles-float {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  33% {
+    transform: translateY(-100px) translateX(100px);
+  }
+  66% {
+    transform: translateY(-200px) translateX(-100px);
+  }
+  100% {
+    transform: translateY(-300px) translateX(0);
   }
 }
