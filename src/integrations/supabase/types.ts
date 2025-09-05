@@ -14,78 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      mining_sessions: {
-        Row: {
-          created_at: string
-          energy_level: number
-          id: string
-          is_mining: boolean
-          last_energy_update: string
-          last_tap_at: string | null
-          mining_rate: number
-          multiplier: number
-          real_ton_balance: number
-          total_mined: number
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          energy_level?: number
-          id?: string
-          is_mining?: boolean
-          last_energy_update?: string
-          last_tap_at?: string | null
-          mining_rate?: number
-          multiplier?: number
-          real_ton_balance?: number
-          total_mined?: number
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          energy_level?: number
-          id?: string
-          is_mining?: boolean
-          last_energy_update?: string
-          last_tap_at?: string | null
-          mining_rate?: number
-          multiplier?: number
-          real_ton_balance?: number
-          total_mined?: number
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      profiles: {
-        Row: {
-          created_at: string
-          email: string | null
-          id: string
-          updated_at: string
-          user_id: string
-          username: string | null
-        }
-        Insert: {
-          created_at?: string
-          email?: string | null
-          id?: string
-          updated_at?: string
-          user_id: string
-          username?: string | null
-        }
-        Update: {
-          created_at?: string
-          email?: string | null
-          id?: string
-          updated_at?: string
-          user_id?: string
-          username?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
