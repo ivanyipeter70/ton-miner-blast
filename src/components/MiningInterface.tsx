@@ -6,16 +6,21 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { TonWalletConnection } from './TonWalletConnection';
 import { useTonMining } from '@/hooks/useTonMining';
+import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
+import { LogOut, User } from 'lucide-react';
 
 export function MiningInterface() {
+  const { signOut, user } = useAuth();
   const {
     stats,
     isMining,
     tapCount,
     miningProgress,
     isWithdrawing,
+    loading,
     isConnected,
+    isAuthenticated,
     handleMiningTap,
     toggleMining,
     withdrawTON,
@@ -39,13 +44,29 @@ export function MiningInterface() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/5 p-4">
       <div className="max-w-md mx-auto space-y-6">
-        {/* Header */}
+        {/* Header with User Info */}
         <div className="text-center space-y-2">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <User className="h-5 w-5 text-primary" />
+              <span className="text-sm text-muted-foreground">
+                {user?.email?.substring(0, 20)}...
+              </span>
+            </div>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={signOut}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
             TON Miner
           </h1>
           <p className="text-muted-foreground text-sm">
-            Earn TON coins by mining • Tap to boost
+            Secure mining with blockchain integration
           </p>
         </div>
 
