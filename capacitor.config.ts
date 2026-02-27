@@ -9,9 +9,9 @@ const config: CapacitorConfig = {
     cleartext: true
   },
   android: {
-    allowMixedContent: true,
+    allowMixedContent: false,
     captureInput: true,
-    webContentsDebuggingEnabled: true
+    webContentsDebuggingEnabled: false
   }
 };
 
