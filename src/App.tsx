@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Session } from "@supabase/supabase-js";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
+import History from "./pages/History";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ const App = () => {
           <Routes>
             <Route path="/auth" element={session ? <Navigate to="/" replace /> : <Auth />} />
             <Route path="/" element={<ProtectedRoute session={session}><Index /></ProtectedRoute>} />
+            <Route path="/history" element={<ProtectedRoute session={session}><History /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
