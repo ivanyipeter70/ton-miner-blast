@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Pickaxe, Coins, Zap, TrendingUp, Download, LogOut } from "lucide-react";
+import { Pickaxe, Coins, Zap, TrendingUp, LogOut, History } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { WithdrawDialog } from "./WithdrawDialog";
 
 interface MiningProfile {
   total_mined: number;
@@ -24,6 +26,7 @@ export const MiningInterface = () => {
     tap_count: 0,
   });
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const [tapping, setTapping] = useState(false);
   const { toast } = useToast();
 
@@ -112,9 +115,14 @@ export const MiningInterface = () => {
             </h1>
             <p className="text-sm text-muted-foreground">Earn TON for FREE</p>
           </div>
-          <Button variant="ghost" size="icon" onClick={handleLogout}>
-            <LogOut className="w-5 h-5 text-muted-foreground" />
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="ghost" size="icon" onClick={() => navigate("/history")}>
+              <History className="w-5 h-5 text-muted-foreground" />
+            </Button>
+            <Button variant="ghost" size="icon" onClick={handleLogout}>
+              <LogOut className="w-5 h-5 text-muted-foreground" />
+            </Button>
+          </div>
         </div>
 
         {/* Balance Card */}
@@ -127,10 +135,7 @@ export const MiningInterface = () => {
               </span>
               <span className="text-sm text-primary font-semibold">TON</span>
             </div>
-            <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              <Download className="w-4 h-4 mr-2" />
-              Withdraw
-            </Button>
+            <WithdrawDialog balance={profile.total_mined} onSuccess={fetchStats} />
           </div>
         </Card>
 
