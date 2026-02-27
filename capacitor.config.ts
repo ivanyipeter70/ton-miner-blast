@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
   webDir: 'dist',
   server: {
     url: 'https://babc526d-6412-472c-9233-7bdfe59c49c8.lovableproject.com?forceHideBadge=true',
-    cleartext: true
+    cleartext: false
   },
   android: {
     allowMixedContent: false,
