@@ -63,9 +63,9 @@ Deno.serve(async (req) => {
       }
 
       const trimmedWallet = wallet_address.trim();
-      if (trimmedWallet.length < 10 || trimmedWallet.length > 70) {
+      if (!TON_WALLET_REGEX.test(trimmedWallet)) {
         return new Response(
-          JSON.stringify({ error: "Invalid wallet address format" }),
+          JSON.stringify({ error: "Invalid TON wallet address. Must start with UQ or EQ and be 48 characters." }),
           { status: 400, headers: jsonHeaders }
         );
       }
